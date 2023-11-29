@@ -8,42 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var Wrestlers = wrestlers()
+    @State private var wrestler1 = ""
+    @State private var wrestler2 = ""
+
     var body: some View {
         NavigationView {
             VStack {
                 Text("Who's wrestling?")
                     .font(.title)
-                    CustomTextField(placeholder: "Wrestler #1", bindingText: $Wrestlers.Wrestler1)
-                        .multilineTextAlignment(.center)
+                
+                TextField("Wrestler #1", text: $wrestler1)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.center)
+                
                 Text("Vs.")
                     .bold()
                     .font(.title)
-                CustomTextField(placeholder: "Wrestler #2", bindingText: $Wrestlers.Wrestler2)
+                
+                TextField("Wrestler #2", text: $wrestler2)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.center)
+                
+                Spacer()
+                
+                NavigationLink("Next", destination: SwiftUIView1(wrestler1: wrestler1, wrestler2: wrestler2))
             }
             .navigationTitle("Login")
         }
     }
 }
+
 struct wrestlers {
-     var Wrestler1 = ""
-     var Wrestler2 = ""
+    var Wrestler1 = ""
+    var Wrestler2 = ""
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-struct CustomTextField: View {
-    let placeholder: String
-    let bindingText: Binding<String>
-    
-    var body: some View {
-        TextField(placeholder, text: bindingText)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .autocapitalization(.none)
     }
 }
