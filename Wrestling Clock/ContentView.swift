@@ -20,15 +20,16 @@ struct ContentView: View {
                 TextField("Wrestler #1", text: $wrestler1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.center)
+                    .font(.title)
                 
                 Text("Vs.")
                     .bold()
-                    .font(.title)
+                    .font(.title2)
                 
                 TextField("Wrestler #2", text: $wrestler2)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.center)
-                
+                    .font(.title)
                 Spacer()
                 
                 NavigationLink("Next", destination: SwiftUIView1(wrestler1: wrestler1, wrestler2: wrestler2))

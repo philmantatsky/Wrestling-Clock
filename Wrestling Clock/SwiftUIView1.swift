@@ -17,12 +17,12 @@ struct SwiftUIView1: View {
 
     var body: some View {
         VStack {
-            Text("Clock")
+            Text("Wrestling Clock")
                 .font(.title)
                 .bold()
-                .frame(width:100, height: 50)
-            Text("\(timeMinutes):\(String(format: "%02d", timeSeconds))")
-                .frame(width: 4000, height: 200)
+                .frame(width: 300, height: 50)
+                Text("\(timeMinutes):\(String(format: "%02d", timeSeconds))")
+                .frame(width: 4000, height: 150)
                 .font(.custom("Times New Roman", size: 100))
                 .onReceive(timer) { _ in
                     if timeSeconds > 0 {
@@ -32,12 +32,15 @@ struct SwiftUIView1: View {
                         timeSeconds = 59
                     }
                 }
-            Spacer()
-            Spacer()
+                .position(x: 200, y: 50)
             HStack {
-                Text("Wrestler 1: \(wrestler1)")
-                Text("Wrestler 2: \(wrestler2)")
+                Text("Red: \(wrestler1)")
+                    .font(.title)
+                Spacer().frame(width: 90)
+                Text("Green: \(wrestler2)")
+                    .font(.title)
             }
+            .position(x: 200, y: -180)
         }
     }
 }
