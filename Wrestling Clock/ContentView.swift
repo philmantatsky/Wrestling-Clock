@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 Text("Who's wrestling?")
-                    .font(.title)
+                    .font(.custom("Times New Roman", size: 35))
                 
                 TextField("Wrestler #1", text: $wrestler1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
