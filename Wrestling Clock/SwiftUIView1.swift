@@ -27,7 +27,7 @@ struct SwiftUIView1: View {
             Color.gray.opacity(0.3).ignoresSafeArea()
             VStack {
                 Button(action: { isBloodTimeActive.toggle()
-                }) { Text(isBloodTimeActive ? "Regular Time" : "Blood Time")
+                }) { Text(isBloodTimeActive ? "Regular Time" : "Blood Time Red")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
@@ -140,6 +140,50 @@ struct SwiftUIView1: View {
                     .font(.title3)
             }
             .position(x: 200, y: 700)
+            HStack{
+                Button(action: {
+                        redScore += 2
+                }) { Text("+2")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .font(.title3)
+                }
+                .position(x: 60, y: 520)
+                Button(action: {
+                        redScore += 3
+                }) { Text("+3")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .font(.title3)
+                }
+                .position(x: -70, y: 520)
+            }
+            HStack {
+                Button(action: {
+                        greenScore += 3
+                }) { Text("+3")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .font(.title3)
+                }
+                .position(x: 350, y: 520)
+                Button(action: {
+                        greenScore += 2
+                }) { Text("+2")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .font(.title3)
+                }
+                .position(x: 80, y: 520)
+            }
         }
     }
 }
