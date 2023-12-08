@@ -14,6 +14,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer().frame(height: 20)
                 Text("Who's wrestling?")
                     .font(.custom("Times New Roman", size: 35))
                 
@@ -31,17 +32,14 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .font(.title)
                 Spacer()
-                
+
                 NavigationLink("Next", destination: SwiftUIView1(wrestler1: wrestler1, wrestler2: wrestler2))
             }
-            .navigationTitle("Login")
+            .navigationBarTitle("Login", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .padding()
         }
     }
-}
-
-struct wrestlers {
-    var Wrestler1 = ""
-    var Wrestler2 = ""
 }
 
 struct ContentView_Previews: PreviewProvider {

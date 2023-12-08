@@ -13,9 +13,12 @@ struct SwiftUIView1: View {
     @State private var timerIsOn = false
     @State private var redScore = 0
     @State private var greenScore = 0
-    @State private var bloodTimeMinutes = 5
-    @State private var bloodTimeSeconds = 0
-    @State private var isBloodTimeActive = false
+    @State private var bloodTimeMinutesRed = 5
+    @State private var bloodTimeSecondsRed = 0
+    @State private var bloodTimeMinutesGreen = 5
+    @State private var bloodTimeSecondsGreen = 0
+    @State private var isBloodTimeActiveRed = false
+    @State private var isBloodTimeActiveGreen = false
     @State private var bloodTimeOn = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -26,30 +29,61 @@ struct SwiftUIView1: View {
         ZStack {
             Color.gray.opacity(0.3).ignoresSafeArea()
             VStack {
-                Button(action: { isBloodTimeActive.toggle()
-                }) { Text(isBloodTimeActive ? "Regular Time" : "Blood Time Red")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .font(.title3)
+                HStack {
+                    Button(action: { isBloodTimeActiveRed.toggle()
+                    }) { Text(isBloodTimeActiveRed ? "Regular Time" : "Blood Time Red")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .font(.title3)
+                    }
+                    Button(action: { isBloodTimeActiveGreen.toggle()
+                    }) { Text(isBloodTimeActiveGreen ? "Regular Time" : "Blood Time Green")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .font(.title3)
+                    }
                 }
                 Text("Wrestling Clock")
                     .font(.title)
                     .bold()
                     .frame(width: 300, height: 50)
-                if isBloodTimeActive == true {
-                    Text("\(bloodTimeMinutes):\(String(format: "%02d", bloodTimeSeconds))")
+                if isBloodTimeActiveRed == true && isBloodTimeActiveGreen != true {
+                    Text("\(bloodTimeMinutesRed):\(String(format: "%02d", bloodTimeSecondsRed))")
                         .frame(width: 400, height: 150)
                         .font(.custom("Times New Roman", size: 100))
+                        .foregroundColor(Color(red: 0.9, green: 0.2, blue: 0.1))
                         .position(x: 200, y: 50)
                         .onReceive(timer) { _ in
                             if bloodTimeOn == true {
-                                if bloodTimeSeconds > 0 {
-                                    bloodTimeSeconds -= 1
+                                if bloodTimeSecondsRed > 0 {
+                                    bloodTimeSecondsRed -= 1
                                 } else if timeMinutes > 0 {
-                                    bloodTimeMinutes -= 1
-                                    bloodTimeSeconds = 59
+                                    bloodTimeMinutesRed -= 1
+                                    bloodTimeSecondsRed = 59
+                                }
+                            }
+                        }
+                        .onTapGesture {
+                            bloodTimeOn.toggle()
+                        }
+                }
+               else if isBloodTimeActiveGreen == true && isBloodTimeActiveRed != true {
+                    Text("\(bloodTimeMinutesGreen):\(String(format: "%02d", bloodTimeSecondsGreen))")
+                        .frame(width: 400, height: 150)
+                        .font(.custom("Times New Roman", size: 100))
+                        .foregroundColor(Color(red: 0.2, green: 0.8, blue: 0.1))
+                        .position(x: 200, y: 50)
+                        .onReceive(timer) { _ in
+                            if bloodTimeOn == true {
+                                if bloodTimeSecondsGreen > 0 {
+                                    bloodTimeSecondsGreen -= 1
+                                } else if timeMinutes > 0 {
+                                    bloodTimeMinutesGreen -= 1
+                                    bloodTimeSecondsGreen = 59
                                 }
                             }
                         }
@@ -92,7 +126,7 @@ struct SwiftUIView1: View {
                         }
                     Spacer().frame(width: 160)
                     Text("\(greenScore)")
-                        .foregroundColor(Color(red: 0.2, green: 0.9, blue: 0.1))
+                        .foregroundColor(Color(red: 0.2, green: 0.8, blue: 0.1))
                         .onTapGesture {
                             greenScore += 1
                         }
@@ -128,10 +162,12 @@ struct SwiftUIView1: View {
                 timeSeconds = 0
                 redScore = 0
                 greenScore = 0
-                bloodTimeMinutes = 5
-                bloodTimeSeconds = 0
+                bloodTimeMinutesRed = 5
+                bloodTimeSecondsRed = 0
                 timerIsOn = false
                 bloodTimeOn = false
+                bloodTimeMinutesGreen = 5
+                bloodTimeSecondsGreen = 0
             }) { Text("Reset")
                     .foregroundColor(.white)
                     .padding()
