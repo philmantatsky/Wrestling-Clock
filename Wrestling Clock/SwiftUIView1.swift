@@ -20,11 +20,12 @@ struct SwiftUIView1: View {
     @State private var isBloodTimeActiveRed = false
     @State private var isBloodTimeActiveGreen = false
     @State private var bloodTimeOn = false
+    @State private var period = 1
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
     var wrestler1: String
     var wrestler2: String
-
+    
     var body: some View {
         ZStack {
             Color.gray.opacity(0.3).ignoresSafeArea()
@@ -71,7 +72,7 @@ struct SwiftUIView1: View {
                             bloodTimeOn.toggle()
                         }
                 }
-               else if isBloodTimeActiveGreen == true && isBloodTimeActiveRed != true {
+                else if isBloodTimeActiveGreen == true && isBloodTimeActiveRed != true {
                     Text("\(bloodTimeMinutesGreen):\(String(format: "%02d", bloodTimeSecondsGreen))")
                         .frame(width: 400, height: 150)
                         .font(.custom("Times New Roman", size: 100))
@@ -102,7 +103,18 @@ struct SwiftUIView1: View {
                                     timeMinutes -= 1
                                     timeSeconds = 59
                                 }
-                            }
+                            } else {
+                                    if period == 4 {
+                                        timeMinutes = 1
+                                        
+                                        
+                                    }
+                                    if period == 5 {
+                                        timeMinutes = 0
+                                        timeSeconds = 30
+                                    }
+                                }
+                            
                         }
                     
                         .onTapGesture {
@@ -110,6 +122,7 @@ struct SwiftUIView1: View {
                         }
                         .position(x: 200, y: 50)
                 }
+                
                 HStack {
                     Text("Red: \(wrestler1)")
                         .font(.title)
@@ -178,7 +191,7 @@ struct SwiftUIView1: View {
             .position(x: 200, y: 700)
             HStack{
                 Button(action: {
-                        redScore += 2
+                    redScore += 2
                 }) { Text("+2")
                         .foregroundColor(.white)
                         .padding()
@@ -188,7 +201,7 @@ struct SwiftUIView1: View {
                 }
                 .position(x: 60, y: 520)
                 Button(action: {
-                        redScore += 3
+                    redScore += 3
                 }) { Text("+3")
                         .foregroundColor(.white)
                         .padding()
@@ -198,9 +211,10 @@ struct SwiftUIView1: View {
                 }
                 .position(x: -70, y: 520)
             }
+            
             HStack {
                 Button(action: {
-                        greenScore += 3
+                    greenScore += 3
                 }) { Text("+3")
                         .foregroundColor(.white)
                         .padding()
@@ -210,7 +224,7 @@ struct SwiftUIView1: View {
                 }
                 .position(x: 350, y: 520)
                 Button(action: {
-                        greenScore += 2
+                    greenScore += 2
                 }) { Text("+2")
                         .foregroundColor(.white)
                         .padding()
@@ -219,13 +233,35 @@ struct SwiftUIView1: View {
                         .font(.title3)
                 }
                 .position(x: 80, y: 520)
+                
             }
+            HStack {
+                Text("Period #")
+                Picker("", selection: $period) {
+                    Text("1").tag(1)
+                    Text("2").tag(2)
+                    Text("3").tag(3)
+                    Text("4").tag(4)
+                    Text("5").tag(5)
+                }
+                
+                .pickerStyle(.segmented)
+                .frame(width: 200, height: 50, alignment: .center)
+                .padding()
+            }
+            .position(x: 200, y: 610)
         }
+        .onChange(of: period) { newPeriod in
+            timeMinutes = 2
+            timeSeconds = 0
+            timerIsOn = false
+        }
+        
     }
-}
-
-struct SwiftUIView1_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView1(wrestler1: "Wrestler 1", wrestler2: "Wrestler 2")
+    
+    struct SwiftUIView1_Previews: PreviewProvider {
+        static var previews: some View {
+            SwiftUIView1(wrestler1: "Wrestler 1", wrestler2: "Wrestler 2")
+        }
     }
 }
