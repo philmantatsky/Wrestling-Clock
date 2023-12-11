@@ -104,16 +104,16 @@ struct SwiftUIView1: View {
                                     timeSeconds = 59
                                 }
                             } else {
-                                    if period == 4 {
-                                        timeMinutes = 1
-                                        
-                                        
-                                    }
-                                    if period == 5 {
-                                        timeMinutes = 0
-                                        timeSeconds = 30
-                                    }
+                                if period == 4 {
+                                    timeMinutes = 1
+                                    
+                                    
                                 }
+                                if period == 5 {
+                                    timeMinutes = 0
+                                    timeSeconds = 30
+                                }
+                            }
                             
                         }
                     
